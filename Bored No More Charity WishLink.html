@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)file:///C:/Users/Allison/Downloads/WishLink.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bored No More Charity WishLink</title>
+  <script src="./Bored No More Charity WishLink_files/react.production.min.js.download"></script>
+  <script src="./Bored No More Charity WishLink_files/react-dom.production.min.js.download"></script>
+  <script src="./Bored No More Charity WishLink_files/babel.min.js.download"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, serif;
+      background: #f9fafb;
+      color: #111827;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #14532d 0%, #166534 60%, #15803d 100%);
+      color: white;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    .header-inner { max-width: 700px; margin: 0 auto; }
+    h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 12px; letter-spacing: -0.5px; }
+    .subtitle { font-size: 1.05rem; opacity: 0.9; line-height: 1.6; margin-bottom: 10px; }
+    .credit { font-size: 0.85rem; opacity: 0.7; margin-top: 8px; font-style: italic; }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 28px 24px 8px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 8px 20px;
+      border-radius: 9999px;
+      border: 2px solid #d1d5db;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #374151;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .tab.active {
+      background: #16a34a;
+      color: white;
+      border-color: #16a34a;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; }
+    .emoji { font-size: 1.8rem; }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-hospital { background: #e0f2fe; color: #0369a1; }
+    .badge-rescue { background: #fef3c7; color: #92400e; }
+    .card-title { font-size: 1.1rem; font-weight: bold; line-height: 1.3; color: #111827; }
+    .card-location { font-size: 0.85rem; color: #6b7280; }
+    .card-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.6; flex-grow: 1; }
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 20px;
+      background: #16a34a;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-align: center;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: #15803d; }
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: #6b7280;
+      font-size: 0.9rem;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+    footer a { color: #16a34a; text-decoration: none; font-weight: bold; }
+    .copyright { margin-top: 8px; color: #9ca3af; }
+  </style>
+<script>"use strict";
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+var organizations = [{
+  id: 1,
+  type: "hospital",
+  name: "Children's Hospital of Philadelphia",
+  description: "Supporting the Child Life division with activities and comfort items for young patients.",
+  wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER1",
+  location: "Philadelphia, PA",
+  emoji: "🏥"
+}, {
+  id: 2,
+  type: "hospital",
+  name: "Boston Children's Hospital",
+  description: "Bringing joy and distraction to children during their hospital stays.",
+  wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER2",
+  location: "Boston, MA",
+  emoji: "🏥"
+}, {
+  id: 3,
+  type: "hospital",
+  name: "St. Jude Children's Research Hospital",
+  description: "Helping children and families feel at home while receiving treatment.",
+  wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER3",
+  location: "Memphis, TN",
+  emoji: "🏥"
+}, {
+  id: 4,
+  type: "rescue",
+  name: "Lucky Dog Animal Rescue",
+  description: "Rescuing dogs from high-kill shelters and finding them loving forever homes.",
+  wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER4",
+  location: "Washington, DC",
+  emoji: "🐾"
+}, {
+  id: 5,
+  type: "rescue",
+  name: "Secondhand Hounds",
+  description: "A foster-based rescue saving dogs and cats from shelters across the Midwest.",
+  wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER5",
+  location: "Eden Prairie, MN",
+  emoji: "🐾"
+}, {
+  id: 6,
+  type: "rescue",
+  name: "Mutt Misfits Animal Rescue",
+  description: "Dedicated to finding homes for dogs with special needs and overlooked pups.",
+  wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER6",
+  location: "Chicago, IL",
+  emoji: "🐾"
+}];
+function OrgCard(_ref) {
+  var org = _ref.org;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "card-header"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "emoji"
+  }, org.emoji), /*#__PURE__*/React.createElement("span", {
+    className: "badge badge-".concat(org.type)
+  }, org.type === "hospital" ? "Child Life" : "Dog Rescue")), /*#__PURE__*/React.createElement("h3", {
+    className: "card-title"
+  }, org.name), /*#__PURE__*/React.createElement("p", {
+    className: "card-location"
+  }, "\uD83D\uDCCD ", org.location), /*#__PURE__*/React.createElement("p", {
+    className: "card-desc"
+  }, org.description), /*#__PURE__*/React.createElement("a", {
+    href: org.wishlistUrl,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "btn"
+  }, "View Wishlist \u2192"));
+}
+function App() {
+  var _React$useState = React.useState("all"),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    filter = _React$useState2[0],
+    setFilter = _React$useState2[1];
+  var filtered = organizations.filter(function (org) {
+    return filter === "all" ? true : org.type === filter;
+  });
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("header", null, /*#__PURE__*/React.createElement("div", {
+    className: "header-inner"
+  }, /*#__PURE__*/React.createElement("h1", null, "\uD83C\uDF81 Bored No More Charity WishLink"), /*#__PURE__*/React.createElement("p", {
+    className: "subtitle"
+  }, "Browse Amazon wishlists for children's hospitals and dog rescues \u2014 and make someone's day a little brighter."), /*#__PURE__*/React.createElement("p", {
+    className: "credit"
+  }, "Created by Taylor Brady"))), /*#__PURE__*/React.createElement("div", {
+    className: "filters"
+  }, [{
+    value: "all",
+    label: "All Organizations"
+  }, {
+    value: "hospital",
+    label: "🏥 Children's Hospitals"
+  }, {
+    value: "rescue",
+    label: "🐾 Dog Rescues"
+  }].map(function (tab) {
+    return /*#__PURE__*/React.createElement("button", {
+      key: tab.value,
+      className: "tab ".concat(filter === tab.value ? "active" : ""),
+      onClick: function onClick() {
+        return setFilter(tab.value);
+      }
+    }, tab.label);
+  })), /*#__PURE__*/React.createElement("main", {
+    className: "grid"
+  }, filtered.map(function (org) {
+    return /*#__PURE__*/React.createElement(OrgCard, {
+      key: org.id,
+      org: org
+    });
+  })), /*#__PURE__*/React.createElement("footer", null, /*#__PURE__*/React.createElement("p", null, "Want to add your organization? ", /*#__PURE__*/React.createElement("a", {
+    href: "mailto:hello@borednomorecharity.org"
+  }, "Get in touch")), /*#__PURE__*/React.createElement("p", {
+    className: "copyright"
+  }, "\xA9 ", new Date().getFullYear(), " Bored No More Charity WishLink")));
+}
+ReactDOM.createRoot(document.getElementById("root")).render( /*#__PURE__*/React.createElement(App, null));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJvcmdhbml6YXRpb25zIiwiaWQiLCJ0eXBlIiwibmFtZSIsImRlc2NyaXB0aW9uIiwid2lzaGxpc3RVcmwiLCJsb2NhdGlvbiIsImVtb2ppIiwiT3JnQ2FyZCIsIl9yZWYiLCJvcmciLCJSZWFjdCIsImNyZWF0ZUVsZW1lbnQiLCJjbGFzc05hbWUiLCJjb25jYXQiLCJocmVmIiwidGFyZ2V0IiwicmVsIiwiQXBwIiwiX1JlYWN0JHVzZVN0YXRlIiwidXNlU3RhdGUiLCJfUmVhY3QkdXNlU3RhdGUyIiwiX3NsaWNlZFRvQXJyYXkiLCJmaWx0ZXIiLCJzZXRGaWx0ZXIiLCJmaWx0ZXJlZCIsInZhbHVlIiwibGFiZWwiLCJtYXAiLCJ0YWIiLCJrZXkiLCJvbkNsaWNrIiwiRGF0ZSIsImdldEZ1bGxZZWFyIiwiUmVhY3RET00iLCJjcmVhdGVSb290IiwiZG9jdW1lbnQiLCJnZXRFbGVtZW50QnlJZCIsInJlbmRlciJdLCJzb3VyY2VzIjpbIklubGluZSBCYWJlbCBzY3JpcHQiXSwic291cmNlc0NvbnRlbnQiOlsiXG4gICAgY29uc3Qgb3JnYW5pemF0aW9ucyA9IFtcbiAgICAgIHtcbiAgICAgICAgaWQ6IDEsIHR5cGU6IFwiaG9zcGl0YWxcIixcbiAgICAgICAgbmFtZTogXCJDaGlsZHJlbidzIEhvc3BpdGFsIG9mIFBoaWxhZGVscGhpYVwiLFxuICAgICAgICBkZXNjcmlwdGlvbjogXCJTdXBwb3J0aW5nIHRoZSBDaGlsZCBMaWZlIGRpdmlzaW9uIHdpdGggYWN0aXZpdGllcyBhbmQgY29tZm9ydCBpdGVtcyBmb3IgeW91bmcgcGF0aWVudHMuXCIsXG4gICAgICAgIHdpc2hsaXN0VXJsOiBcImh0dHBzOi8vd3d3LmFtYXpvbi5jb20vaHovd2lzaGxpc3QvbHMvUExBQ0VIT0xERVIxXCIsXG4gICAgICAgIGxvY2F0aW9uOiBcIlBoaWxhZGVscGhpYSwgUEFcIiwgZW1vamk6IFwi8J+PpVwiLFxuICAgICAgfSxcbiAgICAgIHtcbiAgICAgICAgaWQ6IDIsIHR5cGU6IFwiaG9zcGl0YWxcIixcbiAgICAgICAgbmFtZTogXCJCb3N0b24gQ2hpbGRyZW4ncyBIb3NwaXRhbFwiLFxuICAgICAgICBkZXNjcmlwdGlvbjogXCJCcmluZ2luZyBqb3kgYW5kIGRpc3RyYWN0aW9uIHRvIGNoaWxkcmVuIGR1cmluZyB0aGVpciBob3NwaXRhbCBzdGF5cy5cIixcbiAgICAgICAgd2lzaGxpc3RVcmw6IFwiaHR0cHM6Ly93d3cuYW1hem9uLmNvbS9oei93aXNobGlzdC9scy9QTEFDRUhPTERFUjJcIixcbiAgICAgICAgbG9jYXRpb246IFwiQm9zdG9uLCBNQVwiLCBlbW9qaTogXCLwn4+lXCIsXG4gICAgICB9LFxuICAgICAge1xuICAgICAgICBpZDogMywgdHlwZTogXCJob3NwaXRhbFwiLFxuICAgICAgICBuYW1lOiBcIlN0LiBKdWRlIENoaWxkcmVuJ3MgUmVzZWFyY2ggSG9zcGl0YWxcIixcbiAgICAgICAgZGVzY3JpcHRpb246IFwiSGVscGluZyBjaGlsZHJlbiBhbmQgZmFtaWxpZXMgZmVlbCBhdCBob21lIHdoaWxlIHJlY2VpdmluZyB0cmVhdG1lbnQuXCIsXG4gICAgICAgIHdpc2hsaXN0VXJsOiBcImh0dHBzOi8vd3d3LmFtYXpvbi5jb20vaHovd2lzaGxpc3QvbHMvUExBQ0VIT0xERVIzXCIsXG4gICAgICAgIGxvY2F0aW9uOiBcIk1lbXBoaXMsIFROXCIsIGVtb2ppOiBcIvCfj6VcIixcbiAgICAgIH0sXG4gICAgICB7XG4gICAgICAgIGlkOiA0LCB0eXBlOiBcInJlc2N1ZVwiLFxuICAgICAgICBuYW1lOiBcIkx1Y2t5IERvZyBBbmltYWwgUmVzY3VlXCIsXG4gICAgICAgIGRlc2NyaXB0aW9uOiBcIlJlc2N1aW5nIGRvZ3MgZnJvbSBoaWdoLWtpbGwgc2hlbHRlcnMgYW5kIGZpbmRpbmcgdGhlbSBsb3ZpbmcgZm9yZXZlciBob21lcy5cIixcbiAgICAgICAgd2lzaGxpc3RVcmw6IFwiaHR0cHM6Ly93d3cuYW1hem9uLmNvbS9oei93aXNobGlzdC9scy9QTEFDRUhPTERFUjRcIixcbiAgICAgICAgbG9jYXRpb246IFwiV2FzaGluZ3RvbiwgRENcIiwgZW1vamk6IFwi8J+QvlwiLFxuICAgICAgfSxcbiAgICAgIHtcbiAgICAgICAgaWQ6IDUsIHR5cGU6IFwicmVzY3VlXCIsXG4gICAgICAgIG5hbWU6IFwiU2Vjb25kaGFuZCBIb3VuZHNcIixcbiAgICAgICAgZGVzY3JpcHRpb246IFwiQSBmb3N0ZXItYmFzZWQgcmVzY3VlIHNhdmluZyBkb2dzIGFuZCBjYXRzIGZyb20gc2hlbHRlcnMgYWNyb3NzIHRoZSBNaWR3ZXN0LlwiLFxuICAgICAgICB3aXNobGlzdFVybDogXCJodHRwczovL3d3dy5hbWF6b24uY29tL2h6L3dpc2hsaXN0L2xzL1BMQUNFSE9MREVSNVwiLFxuICAgICAgICBsb2NhdGlvbjogXCJFZGVuIFByYWlyaWUsIE1OXCIsIGVtb2ppOiBcIvCfkL5cIixcbiAgICAgIH0sXG4gICAgICB7XG4gICAgICAgIGlkOiA2LCB0eXBlOiBcInJlc2N1ZVwiLFxuICAgICAgICBuYW1lOiBcIk11dHQgTWlzZml0cyBBbmltYWwgUmVzY3VlXCIsXG4gICAgICAgIGRlc2NyaXB0aW9uOiBcIkRlZGljYXRlZCB0byBmaW5kaW5nIGhvbWVzIGZvciBkb2dzIHdpdGggc3BlY2lhbCBuZWVkcyBhbmQgb3Zlcmxvb2tlZCBwdXBzLlwiLFxuICAgICAgICB3aXNobGlzdFVybDogXCJodHRwczovL3d3dy5hbWF6b24uY29tL2h6L3dpc2hsaXN0L2xzL1BMQUNFSE9MREVSNlwiLFxuICAgICAgICBsb2NhdGlvbjogXCJDaGljYWdvLCBJTFwiLCBlbW9qaTogXCLwn5C+XCIsXG4gICAgICB9LFxuICAgIF07XG5cbiAgICBmdW5jdGlvbiBPcmdDYXJkKHsgb3JnIH0pIHtcbiAgICAgIHJldHVybiAoXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY2FyZFwiPlxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiY2FyZC1oZWFkZXJcIj5cbiAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cImVtb2ppXCI+e29yZy5lbW9qaX08L3NwYW4+XG4gICAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9e2BiYWRnZSBiYWRnZS0ke29yZy50eXBlfWB9PlxuICAgICAgICAgICAgICB7b3JnLnR5cGUgPT09IFwiaG9zcGl0YWxcIiA/IFwiQ2hpbGQgTGlmZVwiIDogXCJEb2cgUmVzY3VlXCJ9XG4gICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgPGgzIGNsYXNzTmFtZT1cImNhcmQtdGl0bGVcIj57b3JnLm5hbWV9PC9oMz5cbiAgICAgICAgICA8cCBjbGFzc05hbWU9XCJjYXJkLWxvY2F0aW9uXCI+8J+TjSB7b3JnLmxvY2F0aW9ufTwvcD5cbiAgICAgICAgICA8cCBjbGFzc05hbWU9XCJjYXJkLWRlc2NcIj57b3JnLmRlc2NyaXB0aW9ufTwvcD5cbiAgICAgICAgICA8YSBocmVmPXtvcmcud2lzaGxpc3RVcmx9IHRhcmdldD1cIl9ibGFua1wiIHJlbD1cIm5vb3BlbmVyIG5vcmVmZXJyZXJcIiBjbGFzc05hbWU9XCJidG5cIj5cbiAgICAgICAgICAgIFZpZXcgV2lzaGxpc3Qg4oaSXG4gICAgICAgICAgPC9hPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICk7XG4gICAgfVxuXG4gICAgZnVuY3Rpb24gQXBwKCkge1xuICAgICAgY29uc3QgW2ZpbHRlciwgc2V0RmlsdGVyXSA9IFJlYWN0LnVzZVN0YXRlKFwiYWxsXCIpO1xuICAgICAgY29uc3QgZmlsdGVyZWQgPSBvcmdhbml6YXRpb25zLmZpbHRlcihvcmcgPT4gZmlsdGVyID09PSBcImFsbFwiID8gdHJ1ZSA6IG9yZy50eXBlID09PSBmaWx0ZXIpO1xuXG4gICAgICByZXR1cm4gKFxuICAgICAgICA8ZGl2PlxuICAgICAgICAgIDxoZWFkZXI+XG4gICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImhlYWRlci1pbm5lclwiPlxuICAgICAgICAgICAgICA8aDE+8J+OgSBCb3JlZCBObyBNb3JlIENoYXJpdHkgV2lzaExpbms8L2gxPlxuICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJzdWJ0aXRsZVwiPlxuICAgICAgICAgICAgICAgIEJyb3dzZSBBbWF6b24gd2lzaGxpc3RzIGZvciBjaGlsZHJlbidzIGhvc3BpdGFscyBhbmQgZG9nIHJlc2N1ZXMg4oCUIGFuZCBtYWtlIHNvbWVvbmUncyBkYXkgYSBsaXR0bGUgYnJpZ2h0ZXIuXG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiY3JlZGl0XCI+Q3JlYXRlZCBieSBUYXlsb3IgQnJhZHk8L3A+XG4gICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICA8L2hlYWRlcj5cblxuICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmlsdGVyc1wiPlxuICAgICAgICAgICAge1tcbiAgICAgICAgICAgICAgeyB2YWx1ZTogXCJhbGxcIiwgbGFiZWw6IFwiQWxsIE9yZ2FuaXphdGlvbnNcIiB9LFxuICAgICAgICAgICAgICB7IHZhbHVlOiBcImhvc3BpdGFsXCIsIGxhYmVsOiBcIvCfj6UgQ2hpbGRyZW4ncyBIb3NwaXRhbHNcIiB9LFxuICAgICAgICAgICAgICB7IHZhbHVlOiBcInJlc2N1ZVwiLCBsYWJlbDogXCLwn5C+IERvZyBSZXNjdWVzXCIgfSxcbiAgICAgICAgICAgIF0ubWFwKHRhYiA9PiAoXG4gICAgICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgICAgICBrZXk9e3RhYi52YWx1ZX1cbiAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2B0YWIgJHtmaWx0ZXIgPT09IHRhYi52YWx1ZSA/IFwiYWN0aXZlXCIgOiBcIlwifWB9XG4gICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0RmlsdGVyKHRhYi52YWx1ZSl9XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICB7dGFiLmxhYmVsfVxuICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgICkpfVxuICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgPG1haW4gY2xhc3NOYW1lPVwiZ3JpZFwiPlxuICAgICAgICAgICAge2ZpbHRlcmVkLm1hcChvcmcgPT4gPE9yZ0NhcmQga2V5PXtvcmcuaWR9IG9yZz17b3JnfSAvPil9XG4gICAgICAgICAgPC9tYWluPlxuXG4gICAgICAgICAgPGZvb3Rlcj5cbiAgICAgICAgICAgIDxwPldhbnQgdG8gYWRkIHlvdXIgb3JnYW5pemF0aW9uPyA8YSBocmVmPVwibWFpbHRvOmhlbGxvQGJvcmVkbm9tb3JlY2hhcml0eS5vcmdcIj5HZXQgaW4gdG91Y2g8L2E+PC9wPlxuICAgICAgICAgICAgPHAgY2xhc3NOYW1lPVwiY29weXJpZ2h0XCI+wqkge25ldyBEYXRlKCkuZ2V0RnVsbFllYXIoKX0gQm9yZWQgTm8gTW9yZSBDaGFyaXR5IFdpc2hMaW5rPC9wPlxuICAgICAgICAgIDwvZm9vdGVyPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICk7XG4gICAgfVxuXG4gICAgUmVhY3RET00uY3JlYXRlUm9vdChkb2N1bWVudC5nZXRFbGVtZW50QnlJZChcInJvb3RcIikpLnJlbmRlcig8QXBwIC8+KTtcbiAgIl0sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUNJLElBQU1BLGFBQWEsR0FBRyxDQUNwQjtFQUNFQyxFQUFFLEVBQUUsQ0FBQztFQUFFQyxJQUFJLEVBQUUsVUFBVTtFQUN2QkMsSUFBSSxFQUFFLHFDQUFxQztFQUMzQ0MsV0FBVyxFQUFFLDBGQUEwRjtFQUN2R0MsV0FBVyxFQUFFLG9EQUFvRDtFQUNqRUMsUUFBUSxFQUFFLGtCQUFrQjtFQUFFQyxLQUFLLEVBQUU7QUFDdkMsQ0FBQyxFQUNEO0VBQ0VOLEVBQUUsRUFBRSxDQUFDO0VBQUVDLElBQUksRUFBRSxVQUFVO0VBQ3ZCQyxJQUFJLEVBQUUsNEJBQTRCO0VBQ2xDQyxXQUFXLEVBQUUsdUVBQXVFO0VBQ3BGQyxXQUFXLEVBQUUsb0RBQW9EO0VBQ2pFQyxRQUFRLEVBQUUsWUFBWTtFQUFFQyxLQUFLLEVBQUU7QUFDakMsQ0FBQyxFQUNE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</script></head>
+<body>
+  <div id="root"><div><header><div class="header-inner"><h1>🎁 Bored No More Charity WishLink</h1><p class="subtitle">Browse Amazon wishlists for children's hospitals and dog rescues — and make someone's day a little brighter.</p><p class="credit">Created by Taylor Brady</p></div></header><div class="filters"><button class="tab active">All Organizations</button><button class="tab ">🏥 Children's Hospitals</button><button class="tab ">🐾 Dog Rescues</button></div><main class="grid"><div class="card"><div class="card-header"><span class="emoji">🏥</span><span class="badge badge-hospital">Child Life</span></div><h3 class="card-title">Children's Hospital of Philadelphia</h3><p class="card-location">📍 Philadelphia, PA</p><p class="card-desc">Supporting the Child Life division with activities and comfort items for young patients.</p><a href="https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER1" target="_blank" rel="noopener noreferrer" class="btn">View Wishlist →</a></div><div class="card"><div class="card-header"><span class="emoji">🏥</span><span class="badge badge-hospital">Child Life</span></div><h3 class="card-title">Boston Children's Hospital</h3><p class="card-location">📍 Boston, MA</p><p class="card-desc">Bringing joy and distraction to children during their hospital stays.</p><a href="https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER2" target="_blank" rel="noopener noreferrer" class="btn">View Wishlist →</a></div><div class="card"><div class="card-header"><span class="emoji">🏥</span><span class="badge badge-hospital">Child Life</span></div><h3 class="card-title">St. Jude Children's Research Hospital</h3><p class="card-location">📍 Memphis, TN</p><p class="card-desc">Helping children and families feel at home while receiving treatment.</p><a href="https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER3" target="_blank" rel="noopener noreferrer" class="btn">View Wishlist →</a></div><div class="card"><div class="card-header"><span class="emoji">🐾</span><span class="badge badge-rescue">Dog Rescue</span></div><h3 class="card-title">Lucky Dog Animal Rescue</h3><p class="card-location">📍 Washington, DC</p><p class="card-desc">Rescuing dogs from high-kill shelters and finding them loving forever homes.</p><a href="https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER4" target="_blank" rel="noopener noreferrer" class="btn">View Wishlist →</a></div><div class="card"><div class="card-header"><span class="emoji">🐾</span><span class="badge badge-rescue">Dog Rescue</span></div><h3 class="card-title">Secondhand Hounds</h3><p class="card-location">📍 Eden Prairie, MN</p><p class="card-desc">A foster-based rescue saving dogs and cats from shelters across the Midwest.</p><a href="https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER5" target="_blank" rel="noopener noreferrer" class="btn">View Wishlist →</a></div><div class="card"><div class="card-header"><span class="emoji">🐾</span><span class="badge badge-rescue">Dog Rescue</span></div><h3 class="card-title">Mutt Misfits Animal Rescue</h3><p class="card-location">📍 Chicago, IL</p><p class="card-desc">Dedicated to finding homes for dogs with special needs and overlooked pups.</p><a href="https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER6" target="_blank" rel="noopener noreferrer" class="btn">View Wishlist →</a></div></main><footer><p>Want to add your organization? <a href="mailto:hello@borednomorecharity.org">Get in touch</a></p><p class="copyright">© 2026 Bored No More Charity WishLink</p></footer></div></div>
+
+  <script type="text/babel">
+    const organizations = [
+      {
+        id: 1, type: "hospital",
+        name: "Children's Hospital of Philadelphia",
+        description: "Supporting the Child Life division with activities and comfort items for young patients.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER1",
+        location: "Philadelphia, PA", emoji: "🏥",
+      },
+      {
+        id: 2, type: "hospital",
+        name: "Boston Children's Hospital",
+        description: "Bringing joy and distraction to children during their hospital stays.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER2",
+        location: "Boston, MA", emoji: "🏥",
+      },
+      {
+        id: 3, type: "hospital",
+        name: "St. Jude Children's Research Hospital",
+        description: "Helping children and families feel at home while receiving treatment.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER3",
+        location: "Memphis, TN", emoji: "🏥",
+      },
+      {
+        id: 4, type: "rescue",
+        name: "Lucky Dog Animal Rescue",
+        description: "Rescuing dogs from high-kill shelters and finding them loving forever homes.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER4",
+        location: "Washington, DC", emoji: "🐾",
+      },
+      {
+        id: 5, type: "rescue",
+        name: "Secondhand Hounds",
+        description: "A foster-based rescue saving dogs and cats from shelters across the Midwest.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER5",
+        location: "Eden Prairie, MN", emoji: "🐾",
+      },
+      {
+        id: 6, type: "rescue",
+        name: "Mutt Misfits Animal Rescue",
+        description: "Dedicated to finding homes for dogs with special needs and overlooked pups.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER6",
+        location: "Chicago, IL", emoji: "🐾",
+      },
+    ];
+
+    function OrgCard({ org }) {
+      return (
+        <div className="card">
+          <div className="card-header">
+            <span className="emoji">{org.emoji}</span>
+            <span className={`badge badge-${org.type}`}>
+              {org.type === "hospital" ? "Child Life" : "Dog Rescue"}
+            </span>
+          </div>
+          <h3 className="card-title">{org.name}</h3>
+          <p className="card-location">📍 {org.location}</p>
+          <p className="card-desc">{org.description}</p>
+          <a href={org.wishlistUrl} target="_blank" rel="noopener noreferrer" className="btn">
+            View Wishlist →
+          </a>
+        </div>
+      );
+    }
+
+    function App() {
+      const [filter, setFilter] = React.useState("all");
+      const filtered = organizations.filter(org => filter === "all" ? true : org.type === filter);
+
+      return (
+        <div>
+          <header>
+            <div className="header-inner">
+              <h1>🎁 Bored No More Charity WishLink</h1>
+              <p className="subtitle">
+                Browse Amazon wishlists for children's hospitals and dog rescues — and make someone's day a little brighter.
+              </p>
+              <p className="credit">Created by Taylor Brady</p>
+            </div>
+          </header>
+
+          <div className="filters">
+            {[
+              { value: "all", label: "All Organizations" },
+              { value: "hospital", label: "🏥 Children's Hospitals" },
+              { value: "rescue", label: "🐾 Dog Rescues" },
+            ].map(tab => (
+              <button
+                key={tab.value}
+                className={`tab ${filter === tab.value ? "active" : ""}`}
+                onClick={() => setFilter(tab.value)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <main className="grid">
+            {filtered.map(org => <OrgCard key={org.id} org={org} />)}
+          </main>
+
+          <footer>
+            <p>Want to add your organization? <a href="mailto:hello@borednomorecharity.org">Get in touch</a></p>
+            <p className="copyright">© {new Date().getFullYear()} Bored No More Charity WishLink</p>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+
+
+</body></html>
