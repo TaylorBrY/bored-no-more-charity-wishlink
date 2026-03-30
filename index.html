@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bored No More Charity WishLink</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, serif;
+      background: #f9fafb;
+      color: #111827;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #14532d 0%, #166534 60%, #15803d 100%);
+      color: white;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    .header-inner { max-width: 700px; margin: 0 auto; }
+    h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 12px; letter-spacing: -0.5px; }
+    .subtitle { font-size: 1.05rem; opacity: 0.9; line-height: 1.6; margin-bottom: 10px; }
+    .credit { font-size: 0.85rem; opacity: 0.7; margin-top: 8px; font-style: italic; }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 28px 24px 8px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 8px 20px;
+      border-radius: 9999px;
+      border: 2px solid #d1d5db;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #374151;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .tab.active {
+      background: #16a34a;
+      color: white;
+      border-color: #16a34a;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 24px;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: center; }
+    .emoji { font-size: 1.8rem; }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-hospital { background: #e0f2fe; color: #0369a1; }
+    .badge-rescue { background: #fef3c7; color: #92400e; }
+    .card-title { font-size: 1.1rem; font-weight: bold; line-height: 1.3; color: #111827; }
+    .card-location { font-size: 0.85rem; color: #6b7280; }
+    .card-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.6; flex-grow: 1; }
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 20px;
+      background: #16a34a;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-align: center;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: #15803d; }
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: #6b7280;
+      font-size: 0.9rem;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+    footer a { color: #16a34a; text-decoration: none; font-weight: bold; }
+    .copyright { margin-top: 8px; color: #9ca3af; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const organizations = [
+      {
+        id: 1, type: "hospital",
+        name: "Children's Hospital of Philadelphia",
+        description: "Supporting the Child Life division with activities and comfort items for young patients.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER1",
+        location: "Philadelphia, PA", emoji: "🏥",
+      },
+      {
+        id: 2, type: "hospital",
+        name: "Boston Children's Hospital",
+        description: "Bringing joy and distraction to children during their hospital stays.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER2",
+        location: "Boston, MA", emoji: "🏥",
+      },
+      {
+        id: 3, type: "hospital",
+        name: "St. Jude Children's Research Hospital",
+        description: "Helping children and families feel at home while receiving treatment.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER3",
+        location: "Memphis, TN", emoji: "🏥",
+      },
+      {
+        id: 4, type: "rescue",
+        name: "Lucky Dog Animal Rescue",
+        description: "Rescuing dogs from high-kill shelters and finding them loving forever homes.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER4",
+        location: "Washington, DC", emoji: "🐾",
+      },
+      {
+        id: 5, type: "rescue",
+        name: "Secondhand Hounds",
+        description: "A foster-based rescue saving dogs and cats from shelters across the Midwest.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER5",
+        location: "Eden Prairie, MN", emoji: "🐾",
+      },
+      {
+        id: 6, type: "rescue",
+        name: "Mutt Misfits Animal Rescue",
+        description: "Dedicated to finding homes for dogs with special needs and overlooked pups.",
+        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER6",
+        location: "Chicago, IL", emoji: "🐾",
+      },
+    ];
+
+    function OrgCard({ org }) {
+      return (
+        <div className="card">
+          <div className="card-header">
+            <span className="emoji">{org.emoji}</span>
+            <span className={`badge badge-${org.type}`}>
+              {org.type === "hospital" ? "Child Life" : "Dog Rescue"}
+            </span>
+          </div>
+          <h3 className="card-title">{org.name}</h3>
+          <p className="card-location">📍 {org.location}</p>
+          <p className="card-desc">{org.description}</p>
+          <a href={org.wishlistUrl} target="_blank" rel="noopener noreferrer" className="btn">
+            View Wishlist →
+          </a>
+        </div>
+      );
+    }
+
+    function App() {
+      const [filter, setFilter] = React.useState("all");
+      const filtered = organizations.filter(org => filter === "all" ? true : org.type === filter);
+
+      return (
+        <div>
+          <header>
+            <div className="header-inner">
+              <h1>🎁 Bored No More Charity WishLink</h1>
+              <p className="subtitle">
+                Browse Amazon wishlists for children's hospitals and dog rescues — and make someone's day a little brighter.
+              </p>
+              <p className="credit">Created by Taylor Brady</p>
+            </div>
+          </header>
+
+          <div className="filters">
+            {[
+              { value: "all", label: "All Organizations" },
+              { value: "hospital", label: "🏥 Children's Hospitals" },
+              { value: "rescue", label: "🐾 Dog Rescues" },
+            ].map(tab => (
+              <button
+                key={tab.value}
+                className={`tab ${filter === tab.value ? "active" : ""}`}
+                onClick={() => setFilter(tab.value)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <main className="grid">
+            {filtered.map(org => <OrgCard key={org.id} org={org} />)}
+          </main>
+
+          <footer>
+            <p>Want to add your organization? <a href="mailto:hello@borednomorecharity.org">Get in touch</a></p>
+            <p className="copyright">© {new Date().getFullYear()} Bored No More Charity WishLink</p>
+          </footer>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

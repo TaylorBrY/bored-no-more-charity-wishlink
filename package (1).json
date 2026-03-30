@@ -1,0 +1,15 @@
+{
+  "name": "bored-no-more-charity-wishlink",
+  "version": "1.0.0",
+  "description": "Bored No More Charity WishLink - Amazon wishlist aggregator for children's hospitals and dog rescues",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
