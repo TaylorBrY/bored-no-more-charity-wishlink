@@ -7,212 +7,287 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Oswald:wght@600&display=swap">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: Georgia, serif;
-      background: #f9fafb;
-      color: #111827;
-      min-height: 100vh;
-    }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8f9fa; min-height: 100vh; }
     header {
-      background: linear-gradient(135deg, #14532d 0%, #166534 60%, #15803d 100%);
+      background: linear-gradient(135deg, #4a7fd4 0%, #2a5aaa 100%);
       color: white;
-      padding: 48px 24px 40px;
+      padding: 2rem 1rem 1.5rem;
       text-align: center;
     }
-    .header-inner { max-width: 700px; margin: 0 auto; }
-    h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 12px; letter-spacing: -0.5px; }
-    .subtitle { font-size: 1.05rem; opacity: 0.9; line-height: 1.6; margin-bottom: 10px; }
-    .credit { font-size: 0.85rem; opacity: 0.7; margin-top: 8px; font-style: italic; }
-    .filters {
+    .header-row {
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 28px 24px 8px;
+      gap: 0.6rem;
       flex-wrap: wrap;
     }
+    .logo {
+      font-family: 'Lobster', cursive;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #3ab89a;
+      line-height: 1;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .divider { color: rgba(255,255,255,0.5); font-size: 1.4rem; }
+    .site-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      color: #3ab89a;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .subtitle { margin: 0.6rem 0 0; font-size: 1rem; opacity: 0.85; }
+    .credit { margin: 0.25rem 0 0; font-size: 0.9rem; color: #3ab89a; }
+    .controls { max-width: 900px; margin: 1.5rem auto 0; padding: 0 1rem; }
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 2px solid #dde2ec;
+      border-radius: 10px;
+      outline: none;
+      margin-bottom: 1rem;
+    }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
     .tab {
-      padding: 8px 20px;
-      border-radius: 9999px;
-      border: 2px solid #d1d5db;
-      background: white;
+      padding: 0.5rem 1.1rem;
+      border-radius: 8px;
+      border: none;
       cursor: pointer;
+      font-weight: 600;
       font-size: 0.9rem;
-      color: #374151;
-      font-family: inherit;
+      background: #e4e8f0;
+      color: #444;
       transition: all 0.15s;
+      font-family: inherit;
     }
-    .tab.active {
-      background: #16a34a;
-      color: white;
-      border-color: #16a34a;
-    }
+    .tab.active-all { background: #4a7fd4; color: white; }
+    .tab.active-hospitals { background: #4a7fd4; color: white; }
+    .tab.active-rescues { background: #3ab89a; color: white; }
+    .count { color: #666; font-size: 0.88rem; margin-bottom: 1rem; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-      max-width: 1100px;
-      margin: 24px auto;
-      padding: 0 24px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      padding-bottom: 2rem;
     }
     .card {
       background: white;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid #eaecf0;
       display: flex;
       flex-direction: column;
-      gap: 10px;
     }
-    .card-header { display: flex; justify-content: space-between; align-items: center; }
-    .emoji { font-size: 1.8rem; }
+    .card-bar { height: 6px; }
+    .card-body { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
     .badge {
-      font-size: 0.75rem;
-      font-weight: bold;
-      padding: 3px 10px;
-      border-radius: 9999px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .badge-hospital { background: #e0f2fe; color: #0369a1; }
-    .badge-rescue { background: #fef3c7; color: #92400e; }
-    .card-title { font-size: 1.1rem; font-weight: bold; line-height: 1.3; color: #111827; }
-    .card-location { font-size: 0.85rem; color: #6b7280; }
-    .card-desc { font-size: 0.9rem; color: #4b5563; line-height: 1.6; flex-grow: 1; }
-    .btn {
       display: inline-block;
-      margin-top: 8px;
-      padding: 10px 20px;
-      background: #16a34a;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      align-self: flex-start;
+    }
+    .card-name { margin: 0 0 0.2rem; font-size: 1rem; font-weight: 700; color: #1a202c; line-height: 1.3; }
+    .card-location { margin: 0 0 0.9rem; font-size: 0.85rem; color: #718096; }
+    .wish-btn {
+      display: block;
+      text-align: center;
       color: white;
+      padding: 0.55rem 0.75rem;
       border-radius: 8px;
       text-decoration: none;
-      font-weight: bold;
-      font-size: 0.9rem;
-      text-align: center;
-      transition: background 0.15s;
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-top: auto;
     }
-    .btn:hover { background: #15803d; }
     footer {
+      background: #1a202c;
+      color: white;
       text-align: center;
-      padding: 40px 24px;
-      color: #6b7280;
-      font-size: 0.9rem;
-      border-top: 1px solid #e5e7eb;
-      margin-top: 24px;
+      padding: 1.5rem 1rem;
+      font-size: 0.85rem;
     }
-    footer a { color: #16a34a; text-decoration: none; font-weight: bold; }
-    .copyright { margin-top: 8px; color: #9ca3af; }
+    footer p { margin: 0 0 0.25rem; opacity: 0.8; }
+    footer a { color: #90cdf4; text-decoration: none; }
+    .footer-title { font-weight: 600; font-size: 0.95rem; opacity: 1 !important; }
+    .footer-credit { color: #3ab89a !important; opacity: 1 !important; }
   </style>
 </head>
 <body>
   <div id="root"></div>
-
   <script type="text/babel">
     const organizations = [
-      {
-        id: 1, type: "hospital",
-        name: "Children's Hospital of Philadelphia",
-        description: "Supporting the Child Life division with activities and comfort items for young patients.",
-        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER1",
-        location: "Philadelphia, PA", emoji: "🏥",
-      },
-      {
-        id: 2, type: "hospital",
-        name: "Boston Children's Hospital",
-        description: "Bringing joy and distraction to children during their hospital stays.",
-        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER2",
-        location: "Boston, MA", emoji: "🏥",
-      },
-      {
-        id: 3, type: "hospital",
-        name: "St. Jude Children's Research Hospital",
-        description: "Helping children and families feel at home while receiving treatment.",
-        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER3",
-        location: "Memphis, TN", emoji: "🏥",
-      },
-      {
-        id: 4, type: "rescue",
-        name: "Lucky Dog Animal Rescue",
-        description: "Rescuing dogs from high-kill shelters and finding them loving forever homes.",
-        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER4",
-        location: "Washington, DC", emoji: "🐾",
-      },
-      {
-        id: 5, type: "rescue",
-        name: "Secondhand Hounds",
-        description: "A foster-based rescue saving dogs and cats from shelters across the Midwest.",
-        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER5",
-        location: "Eden Prairie, MN", emoji: "🐾",
-      },
-      {
-        id: 6, type: "rescue",
-        name: "Mutt Misfits Animal Rescue",
-        description: "Dedicated to finding homes for dogs with special needs and overlooked pups.",
-        wishlistUrl: "https://www.amazon.com/hz/wishlist/ls/PLACEHOLDER6",
-        location: "Chicago, IL", emoji: "🐾",
-      },
+      { id:1, name:"Nationwide Children's Hospital", city:"Columbus", state:"OH", type:"hospital", wishlistUrl:"https://give.nationwidechildrens.org/site/SPageNavigator/General%20Content/Wish_List_Resources.html" },
+      { id:2, name:"Seattle Children's Hospital", city:"Seattle", state:"WA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1JKBOUFKX2P3M" },
+      { id:3, name:"Children's Hospital of Philadelphia (CHOP)", city:"Philadelphia", state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/2ZCSJXQMH83Q4" },
+      { id:4, name:"St. Christopher's Hospital for Children", city:"Philadelphia", state:"PA", type:"hospital", wishlistUrl:"https://givestchris.org/amazonwishlist" },
+      { id:5, name:"Phoenix Children's Hospital", city:"Phoenix", state:"AZ", type:"hospital", wishlistUrl:"https://phoenixchildrens.org/patient-visitor-information/support-programs/child-life-and-therapeutic-arts-programs/child-life-program-wish-list" },
+      { id:6, name:"Comer Children's Hospital (University of Chicago)", city:"Chicago", state:"IL", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2Y1CAWEJCTC4W" },
+      { id:101, name:"Boston Children's Hospital", city:"Boston", state:"MA", type:"hospital", wishlistUrl:"https://www.childrenshospital.org/services/child-life-services/donations-fundraising" },
+      { id:102, name:"St. Jude Children's Research Hospital", city:"Memphis", state:"TN", type:"hospital", wishlistUrl:"https://www.myregistry.com/organization/st-jude-children-s-research-hospital-memphis-tn/4425893" },
+      { id:103, name:"Duke Children's Hospital", city:"Durham", state:"NC", type:"hospital", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/3NOZCOFHH0A44/ref=cm_wl_huc_view" },
+      { id:104, name:"Lucile Packard Children's Hospital at Stanford", city:"Palo Alto", state:"CA", type:"hospital", wishlistUrl:"https://lpfch.org/ways-to-give" },
+      { id:105, name:"St. Louis Children's Hospital", city:"St. Louis", state:"MO", type:"hospital", wishlistUrl:"https://www.stlouischildrens.org/ways-to-give" },
+      { id:106, name:"UPMC Children's Hospital of Pittsburgh", city:"Pittsburgh", state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2NVVBEFR0QQCO" },
+      { id:107, name:"Cincinnati Children's Hospital", city:"Cincinnati", state:"OH", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3RX3SFZFLSBMH" },
+      { id:108, name:"Texas Children's Hospital", city:"Houston", state:"TX", type:"hospital", wishlistUrl:"https://www.texaschildrens.org/ways-to-give" },
+      { id:109, name:"Texas Children's Hospital", city:"Austin", state:"TX", type:"hospital", wishlistUrl:"https://www.texaschildrens.org/ways-to-give" },
+      { id:110, name:"NewYork-Presbyterian Children's Hospital", city:"New York", state:"NY", type:"hospital", wishlistUrl:"https://www.nyp.org/ways-to-give" },
+      { id:111, name:"UNC Children's Hospital", city:"Chapel Hill", state:"NC", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2ZECNIXRGK5BN" },
+      { id:112, name:"Holtz Children's Hospital (Jackson Memorial)", city:"Miami", state:"FL", type:"hospital", wishlistUrl:"https://jacksonhealth.org/ways-to-give/" },
+      { id:113, name:"UCSF Benioff Children's Hospital", city:"San Francisco", state:"CA", type:"hospital", wishlistUrl:"https://www.ucsfbenioffchildrens.org/giving" },
+      { id:114, name:"Cedars-Sinai Children's Hospital", city:"Los Angeles", state:"CA", type:"hospital", wishlistUrl:"https://www.cedars-sinai.org/giving.html" },
+      { id:115, name:"Monroe Carell Jr. Children's Hospital at Vanderbilt", city:"Nashville", state:"TN", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1RCKQ0QXJZ4WP" },
+      { id:116, name:"University of Virginia Children's Hospital", city:"Charlottesville", state:"VA", type:"hospital", wishlistUrl:"https://www.uvahealth.com/giving" },
+      { id:117, name:"Children's Mercy Kansas City", city:"Kansas City", state:"MO", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2GBXUFHHBQRM6" },
+      { id:118, name:"Le Bonheur Children's Hospital", city:"Memphis", state:"TN", type:"hospital", wishlistUrl:"https://www.lebonheur.org/ways-to-give/" },
+      { id:119, name:"Yale New Haven Children's Hospital", city:"New Haven", state:"CT", type:"hospital", wishlistUrl:"https://www.ynhh.org/giving" },
+      { id:120, name:"Arkansas Children's Hospital", city:"Little Rock", state:"AR", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/20JFHCJNQZ0UB" },
+      { id:121, name:"Children's of Alabama", city:"Birmingham", state:"AL", type:"hospital", wishlistUrl:"https://www.childrensal.org/ways-to-give" },
+      { id:122, name:"The Children's Hospital at Providence", city:"Anchorage", state:"AK", type:"hospital", wishlistUrl:"https://alaska.providence.org/giving" },
+      { id:123, name:"Rocky Mountain Hospital for Children", city:"Denver", state:"CO", type:"hospital", wishlistUrl:"https://www.healthonecares.com/ways-to-give" },
+      { id:124, name:"Connecticut Children's Medical Center", city:"Hartford", state:"CT", type:"hospital", wishlistUrl:"https://www.connecticutchildrens.org/giving/" },
+      { id:125, name:"Hoops Family Children's Hospital", city:"Huntington", state:"WV", type:"hospital", wishlistUrl:"https://www.camc.org/giving" },
+      { id:126, name:"American Family Children's Hospital", city:"Madison", state:"WI", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2QEMG2OEN1MID" },
+      { id:127, name:"North Carolina Children's Hospital at UNC", city:"Chapel Hill", state:"NC", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2ZECNIXRGK5BN" },
+      { id:128, name:"Kapi'olani Medical Center for Women & Children", city:"Honolulu", state:"HI", type:"hospital", wishlistUrl:"https://kapiolani.org/giving/" },
+      { id:129, name:"Golisano Children's Hospital at UVM Health", city:"Burlington", state:"VT", type:"hospital", wishlistUrl:"https://www.uvmhealth.org/giving" },
+      { id:130, name:"Northern Light Eastern Maine Medical Center – Pediatric Services", city:"Bangor", state:"ME", type:"hospital", wishlistUrl:"https://northernlighthealth.org/giving" },
+      { id:131, name:"Hackensack Meridian Children's Health", city:"Hackensack", state:"NJ", type:"hospital", wishlistUrl:"https://www.hackensackmeridianhealth.org/giving" },
+      { id:201, name:"Lucky Dog Animal Rescue", city:"Washington", state:"DC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2YULZABV8E3G5" },
+      { id:202, name:"Secondhand Hounds", city:"Eden Prairie", state:"MN", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/34BY31E9WLAP2" },
+      { id:203, name:"Mutt Misfits Animal Rescue", city:"Cherry Hill", state:"NJ", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3FBBMHZNAZP3W" },
+      { id:204, name:"PAWS Adoption Center", city:"Chicago", state:"IL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/27AWDRWHF0PAT" },
+      { id:205, name:"Street Tails Animal Rescue", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1RNUDMKDNJFR0" },
+      { id:206, name:"Rescue Rocks", city:"New Hope", state:"PA", type:"rescue", wishlistUrl:"https://rescuerocks.org/donate/" },
+      { id:207, name:"ACCT Philly", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/D7CJNOIYZ8BK" },
+      { id:208, name:"Main Line Animal Rescue", city:"Phoenixville", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3KJWKFB3XTTMM" },
+      { id:209, name:"Hart 2 Heart Animal Rescue", city:"Reading", state:"PA", type:"rescue", wishlistUrl:"https://hart2heartanimalrescue.com/donate/" },
+      { id:210, name:"FoMA (Friends of Miami Animals)", city:"Miami", state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2HJXHQWQQ4TLX" },
+      { id:211, name:"Maui Humane Society", city:"Puunene", state:"HI", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/EWXQ3Z7T3BSRM" },
+      { id:212, name:"North Shore Animal League America", city:"Port Washington", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1O5JYJLKHNTWF" },
+      { id:213, name:"Bunny's Buddies", city:"Los Angeles", state:"CA", type:"rescue", wishlistUrl:"https://bunnysbuddies.org/donate/" },
+      { id:214, name:"Vanderpump Dogs", city:"West Hollywood", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3HJRK1KZXG8K0" },
+      { id:215, name:"Dalis To The Rescue", city:"Miami", state:"FL", type:"rescue", wishlistUrl:"https://dalistothrescue.org/donate/" },
+      { id:216, name:"Sky Sanctuary Rescue", city:"Temecula", state:"CA", type:"rescue", wishlistUrl:"https://skysanctuaryrescue.com/donate/" },
+      { id:217, name:"Southampton Animal Shelter Foundation", city:"Southampton", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2B0FBHITWLHSB" },
+      { id:218, name:"Emotional Rescue", city:"Los Angeles", state:"CA", type:"rescue", wishlistUrl:"https://emotionalrescue.org/donate/" },
+      { id:219, name:"Texas Husky Rescue", city:"Dallas", state:"TX", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3K0N57TWFOCV5" },
+      { id:220, name:"South Coast Humane Society", city:"Port Orford", state:"OR", type:"rescue", wishlistUrl:"https://southcoasthumanesociety.org/donate/" },
+      { id:221, name:"Golden Rescue South Florida", city:"Fort Lauderdale", state:"FL", type:"rescue", wishlistUrl:"https://goldenrescuesouthflorida.com/donate/" },
+      { id:222, name:"MatchDog Rescue", city:"Arlington", state:"VA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/10PKJZF0YQSXW" },
+      { id:223, name:"Mikey's Chance Canine Rescue", city:"San Jose", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2V2WE1JSDVT5F" },
+      { id:224, name:"Pawfect Match Rescue and Rehabilitation", city:"Houston", state:"TX", type:"rescue", wishlistUrl:"https://pawfectmatchrescue.com/donate/" },
+      { id:225, name:"Lucky Farms Animal Rescue", city:"Nashville", state:"TN", type:"rescue", wishlistUrl:"https://luckyfarmsrescue.org/donate/" },
+      { id:226, name:"Juneau Animal Rescue", city:"Juneau", state:"AK", type:"rescue", wishlistUrl:"https://juneauanimalrescue.org/donate/" },
+      { id:227, name:"Rescue Road", city:"Little Rock", state:"AR", type:"rescue", wishlistUrl:"https://rescueroadtrips.com/donate/" },
+      { id:228, name:"Last Chance Arkansas", city:"Little Rock", state:"AR", type:"rescue", wishlistUrl:"https://lastchancearkansas.org/donate/" },
+      { id:229, name:"Morris Animal Refuge", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2BXUGJRLRP1ZW" },
+      { id:230, name:"Kitty Cottage Adoption Center", city:"Norristown", state:"PA", type:"rescue", wishlistUrl:"https://kittycottage.org/donate/" },
+      { id:231, name:"PURR Philly", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://purrphilly.org/donate/" },
+      { id:232, name:"SAFE Haven for Cats", city:"Raleigh", state:"NC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1JRUBFHVLH4EW" },
+      { id:233, name:"San Francisco SPCA", city:"San Francisco", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/B6ZMJYGTTILG" },
+      { id:234, name:"Humane Society Silicon Valley", city:"Milpitas", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3DF7MWBJ8BKXT" },
+      { id:235, name:"Rocket Dog Rescue", city:"San Francisco", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1YZTZFJQ6LP8C" },
+      { id:236, name:"Muttville Senior Dog Rescue", city:"San Francisco", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1KLHYVQ4S4IFW" },
+      { id:237, name:"Animal Protection Society of Durham", city:"Durham", state:"NC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2O3IOAJCVWUVR" },
+      { id:238, name:"Paws for Life NC", city:"Raleigh", state:"NC", type:"rescue", wishlistUrl:"https://pawsforlifenc.org/donate/" },
+      { id:239, name:"Wright-Way Rescue", city:"Morton Grove", state:"IL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3KJWKFB3XTTMN" },
+      { id:240, name:"Turtle Mountain Animal Rescue", city:"Rolla", state:"ND", type:"rescue", wishlistUrl:"https://turtlemountainanimalrescue.org/donate/" },
     ];
 
-    function OrgCard({ org }) {
-      return (
-        <div className="card">
-          <div className="card-header">
-            <span className="emoji">{org.emoji}</span>
-            <span className={`badge badge-${org.type}`}>
-              {org.type === "hospital" ? "Child Life" : "Dog Rescue"}
-            </span>
-          </div>
-          <h3 className="card-title">{org.name}</h3>
-          <p className="card-location">📍 {org.location}</p>
-          <p className="card-desc">{org.description}</p>
-          <a href={org.wishlistUrl} target="_blank" rel="noopener noreferrer" className="btn">
-            View Wishlist →
-          </a>
-        </div>
-      );
-    }
+    const HOSPITAL_COLOR = "#4a7fd4";
+    const RESCUE_COLOR = "#3ab89a";
 
     function App() {
-      const [filter, setFilter] = React.useState("all");
-      const filtered = organizations.filter(org => filter === "all" ? true : org.type === filter);
+      const [search, setSearch] = React.useState("");
+      const [activeTab, setActiveTab] = React.useState("all");
+
+      const filtered = organizations.filter(org => {
+        const matchesTab = activeTab === "all" || (activeTab === "hospitals" && org.type === "hospital") || (activeTab === "rescues" && org.type === "rescue");
+        const q = search.toLowerCase();
+        const matchesSearch = !q || org.name.toLowerCase().includes(q) || org.city.toLowerCase().includes(q) || org.state.toLowerCase().includes(q);
+        return matchesTab && matchesSearch;
+      }).sort((a, b) => {
+        if (a.type !== b.type) return a.type === "hospital" ? -1 : 1;
+        if (a.state < b.state) return -1;
+        if (a.state > b.state) return 1;
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
 
       return (
         <div>
           <header>
-            <div className="header-inner">
-              <h1>🎁 Bored No More Charity WishLink</h1>
-              <p className="subtitle">
-                Browse Amazon wishlists for children's hospitals and dog rescues — and make someone's day a little brighter.
-              </p>
-              <p className="credit">Created by Taylor Brady</p>
+            <div className="header-row">
+              <span className="logo">Bored No More</span>
+              <span className="divider">✦</span>
+              <span className="site-title">Charity WishLink</span>
             </div>
+            <p className="subtitle">Shop Amazon wishlists for children's hospitals &amp; animal rescues across the U.S.</p>
+            <p className="credit">Created by Taylor Brady &amp; Alexis Brady</p>
           </header>
 
-          <div className="filters">
-            {[
-              { value: "all", label: "All Organizations" },
-              { value: "hospital", label: "🏥 Children's Hospitals" },
-              { value: "rescue", label: "🐾 Dog Rescues" },
-            ].map(tab => (
-              <button
-                key={tab.value}
-                className={`tab ${filter === tab.value ? "active" : ""}`}
-                onClick={() => setFilter(tab.value)}
-              >
-                {tab.label}
-              </button>
-            ))}
+          <div className="controls">
+            <input
+              className="search-input"
+              type="text"
+              placeholder="Search by name, city, or state…"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <div className="tabs">
+              {[
+                { key:"all", label:"All" },
+                { key:"hospitals", label:"🏥 Children's Hospitals" },
+                { key:"rescues", label:"🐾 Animal Rescues" },
+              ].map(tab => (
+                <button
+                  key={tab.key}
+                  className={`tab ${activeTab === tab.key ? "active-" + tab.key : ""}`}
+                  onClick={() => setActiveTab(tab.key)}
+                >{tab.label}</button>
+              ))}
+            </div>
+            <p className="count">Showing {filtered.length} organization{filtered.length !== 1 ? "s" : ""}</p>
+            <div className="grid">
+              {filtered.map(org => {
+                const accent = org.type === "hospital" ? HOSPITAL_COLOR : RESCUE_COLOR;
+                return (
+                  <div className="card" key={org.id}>
+                    <div className="card-bar" style={{background: accent}}></div>
+                    <div className="card-body">
+                      <span className="badge" style={{background: accent + "18", color: accent}}>
+                        {org.type === "hospital" ? "🏥 Children's Hospital" : "🐾 Animal Rescue"}
+                      </span>
+                      <h3 className="card-name">{org.name}</h3>
+                      <p className="card-location">📍 {org.city}, {org.state}</p>
+                      <a href={org.wishlistUrl} target="_blank" rel="noopener noreferrer" className="wish-btn" style={{background: accent}}>
+                        🛒 View Amazon Wish List
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          <main className="grid">
-            {filtered.map(org => <OrgCard key={org.id} org={org} />)}
-          </main>
-
           <footer>
-            <p>Want to add your organization? <a href="mailto:hello@borednomorecharity.org">Get in touch</a></p>
-            <p className="copyright">© {new Date().getFullYear()} Bored No More Charity WishLink</p>
+            <p className="footer-title">Bored No More Charity WishLink</p>
+            <p><a href="https://www.BoredNoMoreCharity.org" target="_blank" rel="noopener noreferrer">www.BoredNoMoreCharity.org</a></p>
+            <p><a href="mailto:borednomore01@gmail.com">borednomore01@gmail.com</a></p>
+            <p className="footer-credit">Created by Taylor Brady &amp; Alexis Brady</p>
           </footer>
         </div>
       );
