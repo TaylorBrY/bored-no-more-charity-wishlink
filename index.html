@@ -38,50 +38,129 @@
     footer p { margin: 0 0 0.25rem; opacity: 0.8; }
     footer a { color: #90cdf4; text-decoration: none; }
     .footer-title { font-weight: 600; font-size: 0.95rem; opacity: 1 !important; }
-    .footer-credit { color: #3ab89a !important; opacity: 1 !important; }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
     const organizations = [
-      { id:2,   name:"Seattle Children's Hospital",                         city:"Seattle",        state:"WA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1JKBOUFKX2P3M" },
-      { id:3,   name:"Children's Hospital of Philadelphia (CHOP)",          city:"Philadelphia",   state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/2ZCSJXQMH83Q4" },
-      { id:6,   name:"Comer Children's Hospital (University of Chicago)",   city:"Chicago",        state:"IL", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2Y1CAWEJCTC4W" },
-      { id:103, name:"Duke Children's Hospital",                            city:"Durham",         state:"NC", type:"hospital", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/3NOZCOFHH0A44/ref=cm_wl_huc_view" },
-      { id:106, name:"UPMC Children's Hospital of Pittsburgh",              city:"Pittsburgh",     state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2NVVBEFR0QQCO" },
-      { id:107, name:"Cincinnati Children's Hospital",                      city:"Cincinnati",     state:"OH", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3RX3SFZFLSBMH" },
-      { id:111, name:"UNC Children's Hospital",                             city:"Chapel Hill",    state:"NC", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2ZECNIXRGK5BN" },
-      { id:115, name:"Monroe Carell Jr. Children's Hospital at Vanderbilt", city:"Nashville",      state:"TN", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1RCKQ0QXJZ4WP" },
-      { id:117, name:"Children's Mercy Kansas City",                        city:"Kansas City",    state:"MO", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2GBXUFHHBQRM6" },
-      { id:120, name:"Arkansas Children's Hospital",                        city:"Little Rock",    state:"AR", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/20JFHCJNQZ0UB" },
-      { id:126, name:"American Family Children's Hospital",                 city:"Madison",        state:"WI", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2QEMG2OEN1MID" },
-      { id:201, name:"Lucky Dog Animal Rescue",               city:"Washington",     state:"DC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2YULZABV8E3G5" },
-      { id:202, name:"Secondhand Hounds",                     city:"Eden Prairie",   state:"MN", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/34BY31E9WLAP2" },
-      { id:203, name:"Mutt Misfits Animal Rescue",            city:"Cherry Hill",    state:"NJ", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3FBBMHZNAZP3W" },
-      { id:204, name:"PAWS Adoption Center",                  city:"Chicago",        state:"IL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/27AWDRWHF0PAT" },
-      { id:205, name:"Street Tails Animal Rescue",            city:"Philadelphia",   state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1RNUDMKDNJFR0" },
-      { id:207, name:"ACCT Philly",                           city:"Philadelphia",   state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/D7CJNOIYZ8BK" },
-      { id:208, name:"Main Line Animal Rescue",               city:"Phoenixville",   state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3KJWKFB3XTTMM" },
-      { id:210, name:"FoMA (Friends of Miami Animals)",       city:"Miami",          state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2HJXHQWQQ4TLX" },
-      { id:211, name:"Maui Humane Society",                   city:"Puunene",        state:"HI", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/EWXQ3Z7T3BSRM" },
-      { id:212, name:"North Shore Animal League America",     city:"Port Washington", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1O5JYJLKHNTWF" },
-      { id:214, name:"Vanderpump Dogs",                       city:"West Hollywood", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3HJRK1KZXG8K0" },
-      { id:217, name:"Southampton Animal Shelter Foundation", city:"Southampton",    state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2B0FBHITWLHSB" },
-      { id:219, name:"Texas Husky Rescue",                    city:"Dallas",         state:"TX", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3K0N57TWFOCV5" },
-      { id:222, name:"MatchDog Rescue",                       city:"Arlington",      state:"VA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/10PKJZF0YQSXW" },
-      { id:223, name:"Mikey's Chance Canine Rescue",          city:"San Jose",       state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2V2WE1JSDVT5F" },
-      { id:229, name:"Morris Animal Refuge",                  city:"Philadelphia",   state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2BXUGJRLRP1ZW" },
-      { id:232, name:"SAFE Haven for Cats",                   city:"Raleigh",        state:"NC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1JRUBFHVLH4EW" },
-      { id:233, name:"San Francisco SPCA",                    city:"San Francisco",  state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/B6ZMJYGTTILG" },
-      { id:234, name:"Humane Society Silicon Valley",         city:"Milpitas",       state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3DF7MWBJ8BKXT" },
-      { id:235, name:"Rocket Dog Rescue",                     city:"San Francisco",  state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1YZTZFJQ6LP8C" },
-      { id:236, name:"Muttville Senior Dog Rescue",           city:"San Francisco",  state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1KLHYVQ4S4IFW" },
-      { id:237, name:"Animal Protection Society of Durham",   city:"Durham",         state:"NC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2O3IOAJCVWUVR" },
-      { id:239, name:"Wright-Way Rescue",                     city:"Morton Grove",   state:"IL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3KJWKFB3XTTMN" },
+      { id:1001, name:"Children's of Alabama", city:"Birmingham", state:"AL", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3SQ5GVKVTX5E" },
+      { id:1003, name:"Arkansas Children's Hospital (ACH)", city:"Little Rock", state:"AR", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/31FEZXBV5UNTY" },
+      { id:1050, name:"Lucile Packard Foundation for Children's Health", city:"Palo Alto", state:"CA", type:"hospital", wishlistUrl:"https://www.stanfordchildrens.org/en/patients-families/creative-arts/donations-wish-lists-and-volunteers.html" },
+      { id:1051, name:"UCSF Benioff Children's Hospitals", city:"Oakland", state:"CA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/AW3GNDF5OZ88" },
+      { id:1004, name:"Children's Hospital Colorado", city:"Aurora", state:"CO", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3273R2F83LMOH" },
+      { id:1005, name:"Connecticut Children's", city:"Hartford", state:"CT", type:"hospital", wishlistUrl:"https://give.connecticutchildrens.org/campaign/virtual-toy-drive/c728298" },
+      { id:1006, name:"Nemours Children's Hospital", city:"Wilmington", state:"DE", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/3BPTDK6PJB7GZ" },
+      { id:1007, name:"Children's National Hospital", city:"Washington", state:"DC", type:"hospital", wishlistUrl:"https://www.myregistry.com/organization/children-s-national-hospital-washington-dc/4253118/giftlist" },
+      { id:1008, name:"Nicklaus Children's Hospital", city:"Miami", state:"FL", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/5QHX4M78WF37" },
+      { id:1010, name:"Children's Healthcare of Atlanta", city:"Atlanta", state:"GA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3SQ5GVKVTX5E" },
+      { id:1011, name:"Riley Hospital for Children at IU Health", city:"Indianapolis", state:"IN", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/9EGJMG1YOP1P" },
+      { id:1012, name:"University of Iowa Stead Family Children's Hospital", city:"Iowa City", state:"IA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3PFSKIY7EWUJJ" },
+      { id:1013, name:"Norton Children's Hospital", city:"Louisville", state:"KY", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/PH6L7ARWB91E" },
+      { id:1014, name:"Manning Family Children's Hospital", city:"New Orleans", state:"LA", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/2MPYA1JWC7XWS" },
+      { id:1015, name:"MaineHealth Barbara Bush Children's Hospital", city:"Portland", state:"ME", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/30Y40V3XAN5H6" },
+      { id:1016, name:"Mt. Washington Pediatric Hospital", city:"Baltimore", state:"MD", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/RQXOYWWSYDI" },
+      { id:1017, name:"Boston Children's Hospital", city:"Boston", state:"MA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/28WUWYCUC63LY" },
+      { id:1018, name:"C.S. Mott Children's Hospital (U of Michigan)", city:"Ann Arbor", state:"MI", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/3A3G1OIZRA3IY" },
+      { id:1019, name:"Children's Minnesota", city:"Minneapolis", state:"MN", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/RRY0PRIM8WB0" },
+      { id:1020, name:"Children's of Mississippi", city:"Jackson", state:"MS", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3S4FKDW49HZQV" },
+      { id:1021, name:"Children's Mercy Kansas City", city:"Kansas City", state:"MO", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2JS3GT08ERBQC" },
+      { id:1022, name:"Ranken Jordan Pediatric Hospital Foundation", city:"Maryland Heights", state:"MO", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/31OIDNDIXGXKT" },
+      { id:1023, name:"Shodair Children's Hospital", city:"Helena", state:"MT", type:"hospital", wishlistUrl:"https://shodair.org/hope-campaign/thebisonandthefirefly/" },
+      { id:1024, name:"Children's Nebraska", city:"Omaha", state:"NE", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3NTHT2UQAP37I" },
+      { id:1025, name:"Sunrise Children's Hospital", city:"Las Vegas", state:"NV", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3A78BWB32CEMJ" },
+      { id:1026, name:"Elliot Hospital Children's Services", city:"Manchester", state:"NH", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3Q68IJCDEP94V" },
+      { id:1028, name:"UNM Children's Hospital", city:"Albuquerque", state:"NM", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3T9IY9G6GCNPN" },
+      { id:1027, name:"Mount Sinai Kravis Children's Hospital", city:"New York City", state:"NY", type:"hospital", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/30M6CFN7AN8SC" },
+      { id:1029, name:"Sanford Children's Hospital", city:"Bismarck", state:"ND", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/JG61MHAIJ7YR" },
+      { id:1030, name:"Oklahoma Children's Hospital", city:"Oklahoma City", state:"OK", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/1F3QHRC0CL5O3" },
+      { id:1031, name:"Doernbecher Children's Hospital at OHSU", city:"Portland", state:"OR", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1UGQSXL0AEXEG" },
+      { id:1032, name:"Children's Hospital of Philadelphia (CHOP)", city:"Philadelphia", state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/2ZCSJXQMH83Q4" },
+      { id:1035, name:"St. Christopher's Hospital for Children", city:"Philadelphia", state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3AWE6VL2JWYRM" },
+      { id:1036, name:"UPMC Children's Hospital of Pittsburgh", city:"Pittsburgh", state:"PA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2NVVBEFR0QQCO" },
+      { id:1037, name:"Fundación Hospital Pediátrico Universitario", city:"San Juan", state:"PR", type:"hospital", wishlistUrl:"https://www.fundacionhospitalpediatrico.org" },
+      { id:1038, name:"Hasbro Children's Hospital", city:"Providence", state:"RI", type:"hospital", wishlistUrl:"https://www.amazon.com/registry/wishlist/1WBAPHRC0DGXB" },
+      { id:1039, name:"MUSC Shawn Jenkins Children's Hospital", city:"Charleston", state:"SC", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/3TMLWKBP5FS95" },
+      { id:1040, name:"Prisma Health Children's Hospital – Midlands", city:"Columbia", state:"SC", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2LETAYOR9KRBI" },
+      { id:1041, name:"Shriners Children's Greenville", city:"Greenville", state:"SC", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/IBBKVQE1FYIE" },
+      { id:1042, name:"Sanford Children's Hospital", city:"Sioux Falls", state:"SD", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3A1MIGJ27HIQ0" },
+      { id:1043, name:"Monroe Carell Jr. Children's Hospital at Vanderbilt", city:"Nashville", state:"TN", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/1ZU0J163ZL18H" },
+      { id:1044, name:"Intermountain Primary Children's Hospital", city:"Salt Lake City", state:"UT", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3ULAGMZB9054E" },
+      { id:1045, name:"Golisano Children's Hospital / UVM Medical Center", city:"Burlington", state:"VT", type:"hospital", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/2YAP39EHNMWLX" },
+      { id:1046, name:"Children's Hospital of The King's Daughters", city:"Norfolk", state:"VA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/285PWYAGGLU12" },
+      { id:1047, name:"Seattle Children's Hospital", city:"Seattle", state:"WA", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1JKBOUFKX2P3M" },
+      { id:1048, name:"Vandalia Health CAMC Women and Children's Hospital", city:"Charleston", state:"WV", type:"hospital", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2P1V4YTNG756T" },
+      { id:1049, name:"Children's Wisconsin", city:"Milwaukee", state:"WI", type:"hospital", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/2VCUAHTKLNJJ6" },
+
+      { id:2001, name:"Humane Society of West Alabama (HSWA)", city:"Tuscaloosa", state:"AL", type:"rescue", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/179BDJZ5YD7NN" },
+      { id:2003, name:"San Francisco SPCA", city:"San Francisco", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/PI26W36EPNCC" },
+      { id:2004, name:"Vanderpump Dogs", city:"Los Angeles", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/131BHJH68M3ZR" },
+      { id:2005, name:"Furry Friends Rescue", city:"San Francisco/Bay Area", state:"CA", type:"rescue", wishlistUrl:"https://www.amazon.com/registry/wishlist/3KEWJ1S0UW0R8" },
+      { id:2006, name:"Rocket Dog Rescue", city:"San Francisco", state:"CA", type:"rescue", wishlistUrl:"https://www.rocketdogrescue.org/donate/" },
+      { id:2007, name:"Muttville Senior Dog Rescue", city:"San Francisco", state:"CA", type:"rescue", wishlistUrl:"https://muttville.org/donate" },
+      { id:2008, name:"Foothills Animal Shelter", city:"Golden", state:"CO", type:"rescue", wishlistUrl:"https://foothillsanimalshelter.org/wishlist/" },
+      { id:2009, name:"Connecticut Humane Society (CHS)", city:"Wilton", state:"CT", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/29THQF8FKV2RJ" },
+      { id:2010, name:"Protector of Animals", city:"East Hartford", state:"CT", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2O12NXQT9AIS1" },
+      { id:2011, name:"Stamford Animal Control & Care Center", city:"Stamford", state:"CT", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2Y3MWVNW0GVPT" },
+      { id:2012, name:"Humane Rescue Alliance (HRA)", city:"Washington", state:"DC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1U95GHR7L9V0F" },
+      { id:2013, name:"Miami-Dade County Animal Services", city:"Miami", state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2ZWE3L7XEAEG9" },
+      { id:2014, name:"Miami Animal Rescue", city:"Miami", state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2LB6S5C68TR3W" },
+      { id:2015, name:"Humane Society of Greater Miami", city:"Miami", state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/16E06GZ23IGV" },
+      { id:2016, name:"Abandoned Pet Rescue", city:"Ft. Lauderdale", state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1GTO0J9EM56R6" },
+      { id:2017, name:"Palm Beach County Animal Care and Control", city:"Palm Beach", state:"FL", type:"rescue", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/35ICMIRY30R9Q" },
+      { id:2018, name:"LifeLine Animal Project", city:"Atlanta", state:"GA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1TSOTYZZ6F225" },
+      { id:2019, name:"Maui Humane Society", city:"Maui", state:"HI", type:"rescue", wishlistUrl:"https://www.mauihumanesociety.org/donate-items/" },
+      { id:2020, name:"Idaho Humane Society", city:"Boise", state:"ID", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3PZ3BDYZJ23BD" },
+      { id:2021, name:"Companions Animal Center", city:"Hayden", state:"ID", type:"rescue", wishlistUrl:"https://www.companionsanimalcenter.org/wish-list" },
+      { id:2022, name:"Wright-Way Rescue", city:"Morton Grove", state:"IL", type:"rescue", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/R4JZ7N9YWU" },
+      { id:2023, name:"Southside Animal Shelter", city:"Indianapolis", state:"IN", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/9EGJMG1YOP1P" },
+      { id:2024, name:"Animal Rescue League of Iowa (ARL)", city:"Des Moines", state:"IA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2R1040GW7DDWQ" },
+      { id:2025, name:"Jefferson County Humane Society", city:"Valley Falls", state:"KS", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/18TDRRGGJW2WK" },
+      { id:2026, name:"Kingman County Humane Society", city:"Kingman", state:"KS", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1ADHWDG0JVL5N" },
+      { id:2027, name:"Animal Rescue New Orleans (ARNO)", city:"New Orleans", state:"LA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/29THQF8FKV2RJ" },
+      { id:2028, name:"Franklin County Animal Shelter", city:"Farmington", state:"ME", type:"rescue", wishlistUrl:"https://www.amazon.com/s?k=franklin+county+animal+shelter+wish+list" },
+      { id:2029, name:"Baltimore Humane Society", city:"Baltimore", state:"MD", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2QHE9DZCVWBUJ" },
+      { id:2030, name:"Heart of Minnesota Animal Shelter", city:"Hutchinson", state:"MN", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1U4P1O4PP85E0" },
+      { id:2031, name:"KC Pet Project", city:"Kansas City", state:"MO", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/10A4YH6O85O96" },
+      { id:2032, name:"The Animal Foundation", city:"Las Vegas", state:"NV", type:"rescue", wishlistUrl:"https://www.amazon.com/registries/gl/guest-view/3UNRSCYW1PVVN" },
+      { id:2033, name:"New Hampshire SPCA", city:"Stratham", state:"NH", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3F0GY5P357CO3" },
+      { id:2034, name:"Manchester Animal Shelter", city:"Manchester", state:"NH", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/P1C3FVULUAKD" },
+      { id:2035, name:"Bergen County Animal Shelter", city:"Teterboro", state:"NJ", type:"rescue", wishlistUrl:"https://bergencountynj.gov/bergen-county-department-of-health-services/about-animal-shelter-adoption-center/" },
+      { id:2036, name:"Santa Fe Animal Shelter & Humane Society", city:"Santa Fe", state:"NM", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3T9IY9G6GCNPN" },
+      { id:2037, name:"Animal Care Centers of NYC (ACC)", city:"New York City", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3HO9DVVPH6B4Z" },
+      { id:2038, name:"North Shore Animal League America", city:"Port Washington", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/662DIQ3POG5E" },
+      { id:2039, name:"Southampton Animal Shelter Foundation", city:"Southampton", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/WVMX6UI0FA4Y" },
+      { id:2040, name:"Brooklyn Animal Action", city:"Brooklyn", state:"NY", type:"rescue", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/3L0U6HH8X96O7" },
+      { id:2041, name:"Animal Protection Society of Durham", city:"Durham", state:"NC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2O3IOAJCVWUVR" },
+      { id:2042, name:"Turtle Mountain Animal Rescue", city:"Rolla", state:"ND", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2DH07HDNM9URD" },
+      { id:2043, name:"Cleveland Animal Protective League (APL)", city:"Cleveland", state:"OH", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2YYF7QL97PN62" },
+      { id:2044, name:"Humane Ohio", city:"Toledo", state:"OH", type:"rescue", wishlistUrl:"https://www.amazon.com/registry/wishlist/32BXI63F3MIEA" },
+      { id:2045, name:"The Pixie Project", city:"Portland", state:"OR", type:"rescue", wishlistUrl:"https://www.amazon.com/registry/wishlist/2AFCGS085E22F" },
+      { id:2046, name:"Montgomery County SPCA", city:"Conshohocken", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1YFBTFL53UKB5" },
+      { id:2047, name:"Street Tails Animal Rescue", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/9PODPNHP9IMZ" },
+      { id:2048, name:"All 4 Paws Rescue", city:"Malvern", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/13RMUK92YD1DN" },
+      { id:2049, name:"Brandywine Valley SPCA", city:"West Chester", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2K85Z557KH983" },
+      { id:2050, name:"Pennsylvania SPCA", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1K126F5H5RCMN" },
+      { id:2051, name:"PAWS (Philadelphia Animal Welfare Society)", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/FBD376GG4GSY" },
+      { id:2052, name:"ACCT Philly", city:"Philadelphia", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1F0WL8J9XEG5L" },
+      { id:2053, name:"Griffin Pond Animal Shelter", city:"Clarks Summit", state:"PA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/27XIIMTC3SQ35" },
+      { id:2054, name:"Amigos de los Animales", city:"Loiza", state:"PR", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/1A6LE2NGBPW2Z" },
+      { id:2055, name:"Rhode Island SPCA (RISPCA)", city:"Warwick", state:"RI", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3MJAIY3FKDIXX" },
+      { id:2056, name:"Charleston Animal Society", city:"Charleston", state:"SC", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/AFFJLVGFIL8V" },
+      { id:2057, name:"Sioux Falls Area Humane Society", city:"Sioux Falls", state:"SD", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/3A1MIGJ27HIQ0" },
+      { id:2058, name:"Williamson County Animal Shelter", city:"Georgetown", state:"TX", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/10A4YH6O85O96" },
+      { id:2059, name:"Bastrop County Animal Shelter", city:"Bastrop", state:"TX", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2R1040GW7DDWQ" },
+      { id:2060, name:"Best Friends Animal Society – SLC Lifesaving Center", city:"Salt Lake City", state:"UT", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/34JUDBIS3PNGB" },
+      { id:2061, name:"Windham County Humane Society (WCHS)", city:"Brattleboro", state:"VT", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/28FBNRLZBQAQI" },
+      { id:2062, name:"Springfield Humane Society", city:"Springfield", state:"VT", type:"rescue", wishlistUrl:"https://www.amazon.com/gp/registry/wishlist/3REG58CSH27NA" },
+      { id:2063, name:"Animal Welfare League of Alexandria (AWLA)", city:"Alexandria", state:"VA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/7EOGGJP73RPI" },
+      { id:2064, name:"Seattle Humane Society", city:"Seattle", state:"WA", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/33H86MPZAODAW" },
+      { id:2065, name:"Wisconsin Humane Society", city:"Milwaukee", state:"WI", type:"rescue", wishlistUrl:"https://www.amazon.com/hz/wishlist/ls/2WK81GAE5RTKQ" },
     ];
+
     const HOSPITAL_COLOR = "#4a7fd4";
     const RESCUE_COLOR = "#3ab89a";
+
     function App() {
       const [search, setSearch] = React.useState("");
       const [activeTab, setActiveTab] = React.useState("all");
@@ -107,7 +186,7 @@
               <span className="site-title">Charity WishLink</span>
             </div>
             <p className="subtitle">Shop Amazon wishlists for children's hospitals &amp; animal rescues across the U.S.</p>
-            <p className="credit">Created by Taylor Brady &amp; Alexis Brady</p>
+            <p className="credit">Created by Taylor Brady</p>
           </header>
           <div className="controls">
             <input className="search-input" type="text" placeholder="Search by name, city, or state…" value={search} onChange={e => setSearch(e.target.value)} />
@@ -127,7 +206,7 @@
                       <span className="badge" style={{background: accent + "18", color: accent}}>{org.type === "hospital" ? "🏥 Children's Hospital" : "🐾 Animal Rescue"}</span>
                       <h3 className="card-name">{org.name}</h3>
                       <p className="card-location">📍 {org.city}, {org.state}</p>
-                      <a href={org.wishlistUrl} target="_blank" rel="noopener noreferrer" className="wish-btn" style={{background: accent}}>🛒 View Amazon Wish List</a>
+                      <a href={org.wishlistUrl} target="_blank" rel="noopener noreferrer" className="wish-btn" style={{background: accent}}>🛒 View Wish List</a>
                     </div>
                   </div>
                 );
@@ -136,9 +215,8 @@
           </div>
           <footer>
             <p className="footer-title">Bored No More Charity WishLink</p>
-            <p><a href="https://www.BoredNoMoreCharity.org" target="_blank" rel="noopener noreferrer">www.BoredNoMoreCharity.org</a></p>
+            <p><a href="https://www.borednomorecharity.org" target="_blank" rel="noopener noreferrer">www.borednomorecharity.org</a></p>
             <p><a href="mailto:borednomore01@gmail.com">borednomore01@gmail.com</a></p>
-            <p className="footer-credit">Created by Taylor Brady &amp; Alexis Brady</p>
           </footer>
         </div>
       );
